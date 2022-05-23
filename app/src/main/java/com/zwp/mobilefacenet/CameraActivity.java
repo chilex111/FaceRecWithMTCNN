@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -215,23 +216,28 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private Bitmap convertBitmap(byte[] data, Camera camera) {
-        Camera.Size previewSize = camera.getParameters().getPreviewSize();
-        YuvImage yuvimage = new YuvImage(
-                data,
-                camera.getParameters().getPreviewFormat(),
-                previewSize.width,
-                previewSize.height,
-                null);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        yuvimage.compressToJpeg(new Rect(0, 0, previewSize.width, previewSize.height), 100, baos);
-        byte[] rawImage = baos.toByteArray();
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.RGB_565;
-        Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
-        Matrix m = new Matrix();
-        // 这里我的手机需要旋转一下图像方向才正确，如果在你们的手机上不正确，自己调节，
-        // 正式项目中不能这么写，需要计算方向，计算YuvImage方向太麻烦，我这里没有做。
-        m.setRotate(-displayDegree);
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
+       try{
+            Camera.Size previewSize = camera.getParameters().getPreviewSize();
+            YuvImage yuvimage = new YuvImage(
+                    data,
+                    camera.getParameters().getPreviewFormat(),
+                    previewSize.width,
+                    previewSize.height,
+                    null);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            yuvimage.compressToJpeg(new Rect(0, 0, previewSize.width, previewSize.height), 100, baos);
+            byte[] rawImage = baos.toByteArray();
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
+            Matrix m = new Matrix();
+            // 这里我的手机需要旋转一下图像方向才正确，如果在你们的手机上不正确，自己调节，
+            // 正式项目中不能这么写，需要计算方向，计算YuvImage方向太麻烦，我这里没有做。
+            m.setRotate(-displayDegree);
+            return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
+        } catch (Exception e){
+           Log.e("CAMERA::", e.getMessage());
+           return null;
+       }
     }
 }

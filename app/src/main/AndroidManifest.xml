@@ -3,6 +3,8 @@
     package="com.zwp.mobilefacenet">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera" />
 
@@ -16,7 +18,8 @@
 
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:configChanges="orientation">
+            android:configChanges="orientation"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

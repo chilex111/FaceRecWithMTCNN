@@ -62,7 +62,7 @@
             android:layout_height="48dp"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal"
-            android:text="人脸检测"/>
+            android:text="Face Detection"/>
 
         <Button
             android:id="@+id/de_spoofing_btn"
@@ -70,7 +70,7 @@
             android:layout_height="48dp"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal"
-            android:text="活体检测"/>
+            android:text="Liveness detection"/>
 
         <Button
             android:id="@+id/compare_btn"
@@ -78,7 +78,7 @@
             android:layout_height="48dp"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal"
-            android:text="人脸比对"/>
+            android:text="face comparison"/>
     </LinearLayout>
 
 
@@ -86,7 +86,7 @@
         android:id="@+id/result_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="比对结果"
+        android:text="Comparison result"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"/>
 
